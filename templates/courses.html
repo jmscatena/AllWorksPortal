@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+
+{% block title %}Courses - AllWorks Company{% endblock %}
+
+{% block content %}
+<!-- Courses Hero -->
+<section class="bg-primary py-5 text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-4">Our Educational Courses</h1>
+                <p class="lead">Discover our comprehensive courses designed to enhance your professional skills and advance your career. Learn from industry experts with real-world experience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Categories -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Course Categories</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="h5">Project Management</h3>
+                    <p>Master the principles and practices of effective project management across diverse contexts and methodologies.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="h5">Data Science</h3>
+                    <p>Develop the analytical and technical skills needed to extract meaningful insights from complex data sets.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3 class="h5">Leadership</h3>
+                    <p>Enhance your leadership capabilities to effectively guide teams and organizations through challenges and growth.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="h5">Marketing</h3>
+                    <p>Learn cutting-edge marketing strategies and techniques to enhance brand value and drive business growth.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Listing -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Available Courses</h2>
+        
+        <div class="row">
+            {% for course in courses %}
+                <div class="col-lg-6 mb-4 fade-in">
+                    <div class="card course-card h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ course.image }}" class="img-fluid rounded-start h-100 w-100 object-fit-cover" alt="{{ course.title }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <span class="course-level">{{ course.level }}</span>
+                                    <span class="course-duration">{{ course.duration }}</span>
+                                    <h3 class="card-title h5">{{ course.title }}</h3>
+                                    <p class="card-text">{{ course.description }}</p>
+                                    
+                                    <h4 class="h6 mt-4 mb-2">Key Modules:</h4>
+                                    <ul class="module-list">
+                                        {% for module in course.modules[:3] %}
+                                            <li>{{ module }}</li>
+                                        {% endfor %}
+                                        {% if course.modules|length > 3 %}
+                                            <li>And {{ course.modules|length - 3 }} more modules...</li>
+                                        {% endif %}
+                                    </ul>
+                                    
+                                    <div class="course-info d-flex flex-wrap">
+                                        <div class="me-3 mb-2">
+                                            <i class="fas fa-graduation-cap me-1"></i>
+                                            <span>{{ course.certification }}</span>
+                                        </div>
+                                        <div class="me-3 mb-2">
+                                            <i class="fas fa-laptop me-1"></i>
+                                            <span>{{ course.format }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex align-items-center mt-3">
+                                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal{{ course.id }}">View Details</a>
+                                        <span class="ms-auto fw-bold">{{ course.price }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Modal -->
+                <div class="modal fade" id="courseModal{{ course.id }}" tabindex="-1" aria-labelledby="courseModalLabel{{ course.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="courseModalLabel{{ course.id }}">{{ course.title }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <img src="{{ course.image }}" class="img-fluid rounded" alt="{{ course.title }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="lead">{{ course.description }}</p>
+                                        <div class="d-flex flex-wrap mb-3">
+                                            <span class="badge bg-primary me-2 mb-2">{{ course.category }}</span>
+                                            <span class="badge bg-secondary me-2 mb-2">{{ course.level }}</span>
+                                            <span class="badge bg-info text-dark me-2 mb-2">{{ course.duration }}</span>
+                                            <span class="badge bg-success me-2 mb-2">{{ course.format }}</span>
+                                        </div>
+                                        <p class="fw-bold">Price: {{ course.price }}</p>
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mb-3">Course Modules</h5>
+                                <div class="row">
+                                    {% for module in course.modules %}
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start mb-3">
+                                                <div class="me-2">
+                                                    <i class="fas fa-check-circle text-success"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0">{{ module }}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <h5 class="mt-4 mb-3">What You'll Learn</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Practical industry knowledge</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Hands-on experience</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Latest methodologies and tools</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Problem-solving techniques</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Industry best practices</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Professional certification preparation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{{ url_for('contact') }}" class="btn btn-primary">Enquire Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Learning Approach -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">Our Learning Approach</h2>
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body">
+                        <h3 class="h4 mb-4">Expert-Led Instruction</h3>
+                        <p>All our courses are designed and taught by industry experts with extensive real-world experience. They bring practical insights, case studies, and cutting-edge knowledge to create an engaging and relevant learning experience.</p>
+                        <p>Our instructors are not just teachers but practitioners who maintain active involvement in their fields, ensuring you receive the most current and applicable information.</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img src="https://pixabay.com/get/g50cb62f085b9b4ac5de3fb18edc0586978747e4d11ef2f2037749aaa995cd718f9ea9e09e5a1acbcbcad88ef772d6e1aa0f6dcded286873e707d716ae51278dd_1280.jpg" alt="Expert Instructor" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h5 class="h6 mb-0">Our Instructors</h5>
+                                <p class="text-muted mb-0">Industry leaders and subject matter experts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card border-0 h-100">
+                    <div class="card-body">
+                        <h3 class="h4 mb-4">Practical and Applied Learning</h3>
+                        <p>We believe in learning by doing. Our courses emphasize practical applications, hands-on projects, and real-world case studies that allow you to apply concepts immediately in your professional context.</p>
+                        <p>This approach ensures not just theoretical understanding but practical competence that enhances your capabilities and adds immediate value to your organization.</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <img src="https://pixabay.com/get/ge41b4332fbeabbe9f9cc752d2d1527c901271793a85b249689183c0fd1977ce1c7c937c26a42ae8cd5c00b7c6426d8b6ddf7dcffa98df032611249f03d02cefa_1280.jpg" alt="Practical Learning" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h5 class="h6 mb-0">Our Methodology</h5>
+                                <p class="text-muted mb-0">Practice-oriented and results-focused</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">What Our Students Say</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"The Advanced Project Management course transformed my approach to leading complex projects. The instructors were exceptional, and the practical exercises helped me implement the learnings immediately in my organization."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">MT</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">Michael Thompson</h5>
+                                <p class="text-muted mb-0">Senior Project Manager, Tech Solutions Ltd</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"The Data Science and Analytics Fundamentals course provided me with essential skills to transition into a data role. The hands-on projects and real-world datasets made the learning experience incredibly valuable."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">AP</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">Aisha Patel</h5>
+                                <p class="text-muted mb-0">Business Analyst, Global Finance Group</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"The Leadership Excellence Program was transformative for my career. The blend of leadership theory and practical application helped me develop a leadership style that has been recognized throughout my organization."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">JR</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">James Rodriguez</h5>
+                                <p class="text-muted mb-0">Director of Operations, Manufacturing Inc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-primary py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mb-4">Ready to Enhance Your Skills?</h2>
+                <p class="text-white mb-4">Explore our courses and take the next step in your professional development journey.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-secondary btn-lg">Enquire About Courses</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

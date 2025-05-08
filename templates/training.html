@@ -1,0 +1,354 @@
+{% extends 'base.html' %}
+
+{% block title %}Training Programs - AllWorks Company{% endblock %}
+
+{% block content %}
+<!-- Training Hero -->
+<section class="bg-primary py-5 text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-4">Corporate Training Programs</h1>
+                <p class="lead">Our specialized training programs are designed to enhance organizational capabilities, develop talent, and drive business performance through customized learning solutions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Training Overview -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="section-title text-start">Transform Your Organization</h2>
+                <p class="lead mb-4">AllWorks Company delivers high-impact training programs that address specific organizational needs and challenges. Our approach combines industry expertise, practical methodologies, and engaging delivery formats to create meaningful learning experiences.</p>
+                <p>Each training program is customizable to your organization's specific context, culture, and objectives. We work closely with you to ensure that the training delivers measurable outcomes that align with your strategic goals.</p>
+                <div class="mt-4">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary">Discuss Your Training Needs</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="px-4">
+                    <img src="https://pixabay.com/get/ge98175a17db8e08fb59b9cac70f9eda5f708bdcfdd3c1a37946e5884ff2bcf4b2cac5fb11b6788167d802cd236b7ce21530b10c75046fae4c92ff22281e903fd_1280.jpg" alt="Corporate Training Session" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Training Programs -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">Our Training Programs</h2>
+        
+        <div class="row">
+            {% for program in training_programs %}
+                <div class="col-lg-4 mb-4 fade-in">
+                    <div class="card training-card h-100">
+                        <img src="{{ program.image }}" class="card-img-top" alt="{{ program.title }}">
+                        <div class="card-body">
+                            <h3 class="card-title h5">{{ program.title }}</h3>
+                            <p class="mb-2"><strong>For:</strong> {{ program.target_audience }}</p>
+                            <p class="card-text">{{ program.description }}</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Key Outcomes:</h4>
+                            <ul class="module-list">
+                                {% for outcome in program.key_outcomes %}
+                                    <li>{{ outcome }}</li>
+                                {% endfor %}
+                            </ul>
+                            
+                            <div class="training-meta d-flex flex-wrap">
+                                <div class="me-3 mb-2">
+                                    <i class="far fa-clock me-1"></i>
+                                    <span>{{ program.duration }}</span>
+                                </div>
+                                <div class="me-3 mb-2">
+                                    <i class="fas fa-chalkboard-teacher me-1"></i>
+                                    <span>{{ program.delivery_method }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#trainingModal{{ program.id }}">View Details <i class="fas fa-arrow-right ms-1"></i></a>
+                            {% if program.customizable %}
+                                <span class="badge bg-success float-end">Customizable</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Training Modal -->
+                <div class="modal fade" id="trainingModal{{ program.id }}" tabindex="-1" aria-labelledby="trainingModalLabel{{ program.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="trainingModalLabel{{ program.id }}">{{ program.title }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <img src="{{ program.image }}" class="img-fluid rounded" alt="{{ program.title }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="lead">{{ program.description }}</p>
+                                        <div class="d-flex flex-wrap mb-3">
+                                            <span class="badge bg-primary me-2 mb-2">{{ program.delivery_method }}</span>
+                                            <span class="badge bg-info text-dark me-2 mb-2">{{ program.duration }}</span>
+                                            {% if program.customizable %}
+                                                <span class="badge bg-success me-2 mb-2">Customizable</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mb-3">Target Audience</h5>
+                                <p>{{ program.target_audience }}</p>
+                                
+                                <h5 class="mb-3">Key Outcomes</h5>
+                                <div class="row">
+                                    {% for outcome in program.key_outcomes %}
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start mb-3">
+                                                <div class="me-2">
+                                                    <i class="fas fa-check-circle text-success"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="mb-0">{{ outcome }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <h5 class="mt-4 mb-3">Our Approach</h5>
+                                <p>Our training program combines:</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Interactive workshops</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Case studies and simulations</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Expert-led discussions</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Practical application exercises</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Coaching and feedback</li>
+                                            <li><i class="fas fa-check-circle text-success me-2"></i>Post-training support</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mt-4 mb-3">Customization Options</h5>
+                                <p>This program can be tailored to your organization's specific needs. Customization options include:</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-cog text-primary me-2"></i>Industry-specific case studies and examples</li>
+                                    <li><i class="fas fa-cog text-primary me-2"></i>Alignment with your organizational frameworks and terminology</li>
+                                    <li><i class="fas fa-cog text-primary me-2"></i>Integration with existing training initiatives</li>
+                                    <li><i class="fas fa-cog text-primary me-2"></i>Flexible delivery formats to accommodate your team's schedule</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{{ url_for('contact') }}" class="btn btn-primary">Request Training</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Training Methodology -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Our Training Methodology</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="h5">Assessment</h3>
+                    <p>We begin by understanding your organization's specific needs, challenges, and desired outcomes through thorough analysis.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-pencil-ruler"></i>
+                    </div>
+                    <h3 class="h5">Design</h3>
+                    <p>Our experts create customized training programs with relevant content, engaging activities, and practical applications.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="h5">Delivery</h3>
+                    <p>Experienced facilitators deliver training using interactive methods that ensure engagement and knowledge retention.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="h5">Evaluation</h3>
+                    <p>We measure the impact of training through various assessment methods and provide detailed reports on outcomes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Training Benefits -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="px-4">
+                    <img src="https://pixabay.com/get/g41ad65aa4067a75c98967c94e34345623179c3d1577846a3f8ced765849a1acec499d2d3b99bee526e45b5b81882476f3b4ae689d00f48bd28fc55fa8cd37294_1280.jpg" alt="Training Benefits" class="img-fluid rounded shadow">
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <h2 class="section-title text-start">Why Choose Our Training</h2>
+                <div class="d-flex mb-4">
+                    <div class="me-3">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="h5">Industry Experts</h3>
+                        <p>Our trainers are practitioners with extensive experience in their fields, bringing real-world insights to every session.</p>
+                    </div>
+                </div>
+                <div class="d-flex mb-4">
+                    <div class="me-3">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="h5">Customized Approach</h3>
+                        <p>We tailor each program to your specific organizational context, challenges, and objectives for maximum relevance.</p>
+                    </div>
+                </div>
+                <div class="d-flex mb-4">
+                    <div class="me-3">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="h5">Practical Application</h3>
+                        <p>Our focus on practical, applicable skills ensures participants can implement learning immediately in their roles.</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="me-3">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="h5">Measurable Results</h3>
+                        <p>We provide comprehensive evaluation and reporting to demonstrate the impact and ROI of your training investment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Client Testimonials</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"The Corporate Leadership Accelerator program transformed our management team. The customized approach addressed our specific challenges, and we've seen measurable improvements in leadership effectiveness and team performance."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">SJ</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">Sarah Johnson</h5>
+                                <p class="text-muted mb-0">Chief HR Officer, Global Enterprises</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"The Agile Transformation Workshop was exactly what our organization needed. The practical approach helped us implement agile methodologies successfully, and the ongoing support ensured the changes became embedded in our culture."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">RN</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">Robert Nguyen</h5>
+                                <p class="text-muted mb-0">CTO, Tech Innovations Inc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"The Cybersecurity Essentials program drastically improved our organization's security posture. The trainers made complex concepts accessible to all staff levels, and we've seen a significant reduction in security incidents."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">LM</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">Lisa Martinez</h5>
+                                <p class="text-muted mb-0">Information Security Director, Financial Services Group</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-primary py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mb-4">Ready to Transform Your Organization?</h2>
+                <p class="text-white mb-4">Contact us to discuss how our training programs can address your specific organizational challenges and development needs.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-secondary btn-lg">Request a Consultation</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

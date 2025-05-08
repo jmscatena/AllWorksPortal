@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+
+{% block title %}AllWorks Company - Professional Services, Courses & Training{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 hero-content">
+                <h1>{{ company_info.name }}</h1>
+                <p>{{ company_info.slogan }}</p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn btn-secondary me-3 mb-2 mb-md-0">Learn More</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-light">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="px-4">
+                    <img src="https://pixabay.com/get/g921dddd95c9163712cc896a43b0ade029d8711efa856401f27121dec89a221a0e49688bb19fd39c31b7d94176dd27f0911cd046a90c7b2cfc5a802615720c4f4_1280.jpg" alt="AllWorks Company Team" class="img-fluid rounded shadow">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section-title text-start">About AllWorks Company</h2>
+                <p class="lead mb-4">Founded in {{ company_info.founded }}, AllWorks Company is a leading provider of professional services, educational courses, specialized training programs, and industry publications.</p>
+                
+                <h3 class="h4 mb-3">Our Mission</h3>
+                <p>{{ company_info.mission }}</p>
+                
+                <h3 class="h4 mb-3">Our Vision</h3>
+                <p>{{ company_info.vision }}</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <span>Founded in {{ company_info.founded }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-users text-primary me-2"></i>
+                            <span>{{ company_info.team_size }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                            <span>HQ: {{ company_info.headquarters }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-globe text-primary me-2"></i>
+                            <span>Global Presence</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">Our Core Values</h2>
+        <div class="row">
+            {% for value in company_info.core_values %}
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="feature-box text-center fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="h5">{{ value }}</h3>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="row">
+            {% for project in featured_projects %}
+                <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                    <div class="card project-card h-100">
+                        <img src="{{ project.image }}" class="card-img-top" alt="{{ project.title }}">
+                        <div class="card-body">
+                            <span class="project-category">{{ project.category }}</span>
+                            <h3 class="card-title h5">{{ project.title }}</h3>
+                            <p class="card-text">{{ project.description[:150] }}{% if project.description|length > 150 %}...{% endif %}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url_for('projects') }}" class="btn-link">View Details <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('projects') }}" class="btn btn-primary">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="bg-primary py-5">
+    <div class="container">
+        <h2 class="section-title text-white">Our Services</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="h5">Project Management</h3>
+                    <p>Industry-leading project management services to deliver successful outcomes for your business initiatives.</p>
+                    <a href="{{ url_for('projects') }}" class="btn-link text-white">Learn More</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="h5">Educational Courses</h3>
+                    <p>Comprehensive educational programs designed to enhance skills and career advancement.</p>
+                    <a href="{{ url_for('courses') }}" class="btn-link text-white">Learn More</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="h5">Training Programs</h3>
+                    <p>Specialized corporate training to develop talent and strengthen organizational capabilities.</p>
+                    <a href="{{ url_for('training') }}" class="btn-link text-white">Learn More</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="h5">Publications</h3>
+                    <p>Industry-leading research, white papers, and guides to keep you informed about best practices.</p>
+                    <a href="{{ url_for('publications') }}" class="btn-link text-white">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Featured Courses</h2>
+        <div class="row">
+            {% for course in featured_courses %}
+                <div class="col-lg-6 mb-4 fade-in">
+                    <div class="card course-card h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ course.image }}" class="img-fluid rounded-start h-100 w-100 object-fit-cover" alt="{{ course.title }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <span class="course-level">{{ course.level }}</span>
+                                    <span class="course-duration">{{ course.duration }}</span>
+                                    <h3 class="card-title h5">{{ course.title }}</h3>
+                                    <p class="card-text">{{ course.description[:100] }}{% if course.description|length > 100 %}...{% endif %}</p>
+                                    <div class="d-flex align-items-center mt-3">
+                                        <a href="{{ url_for('courses') }}" class="btn-link">View Details <i class="fas fa-arrow-right ms-1"></i></a>
+                                        <span class="ms-auto">{{ course.price }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('courses') }}" class="btn btn-primary">View All Courses</a>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">Our Certifications</h2>
+        <div class="row justify-content-center">
+            {% for certification in company_info.certifications %}
+                <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                    <div class="feature-box text-center h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 class="h5">{{ certification }}</h3>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mb-4">Ready to Transform Your Business?</h2>
+                <p class="text-white mb-4">Let's work together to achieve your goals through our expert services, courses, and training programs.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-secondary btn-lg">Contact Us Today</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

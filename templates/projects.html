@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block title %}Projects - AllWorks Company{% endblock %}
+
+{% block content %}
+<!-- Projects Hero -->
+<section class="bg-primary py-5 text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-4">Our Projects</h1>
+                <p class="lead">Explore our portfolio of successful projects across various industries and domains. Each project showcases our expertise, innovation, and commitment to delivering exceptional results.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Gallery -->
+<section class="py-5">
+    <div class="container">
+        <!-- Filter Controls -->
+        <div class="project-filters mb-5">
+            <button class="filter-btn {% if current_filter == '' or current_filter == 'all' %}active{% endif %}" data-filter="all">All Projects</button>
+            {% for category in categories %}
+                <button class="filter-btn {% if current_filter == category %}active{% endif %}" data-filter="{{ category|lower|replace(' ', '-') }}">{{ category }}</button>
+            {% endfor %}
+        </div>
+        
+        <!-- Projects Grid -->
+        <div class="row">
+            {% for project in projects %}
+                <div class="col-lg-4 col-md-6 mb-4 project-item {{ project.category|lower|replace(' ', '-') }}" style="transition: all 0.3s ease;">
+                    <div class="card project-card h-100">
+                        <img src="{{ project.image }}" class="card-img-top" alt="{{ project.title }}">
+                        <div class="card-body">
+                            <span class="project-category">{{ project.category }}</span>
+                            <h3 class="card-title h5">{{ project.title }}</h3>
+                            <p class="card-text">{{ project.description }}</p>
+                            
+                            <div class="client-info mb-3">
+                                <strong>Client:</strong> {{ project.client }}
+                            </div>
+                            
+                            <div class="project-highlights mb-3">
+                                <strong>Highlights:</strong>
+                                <ul class="list-unstyled">
+                                    {% for highlight in project.highlights %}
+                                        <li><i class="fas fa-check-circle text-success me-2"></i>{{ highlight }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            
+                            <div class="project-meta d-flex">
+                                <div class="me-3">
+                                    <i class="far fa-calendar-alt me-1"></i>
+                                    <span>{{ project.year }}</span>
+                                </div>
+                                <div>
+                                    <i class="far fa-clock me-1"></i>
+                                    <span>{{ project.duration }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Client Success Stories -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">Client Success Stories</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"AllWorks Company transformed our operations through their digital transformation project. Their expertise and dedication led to significant cost savings and operational efficiencies we hadn't thought possible."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">JD</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">John Donovan</h5>
+                                <p class="text-muted mb-0">CIO, Financial Solutions Inc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"The smart city infrastructure project completed by AllWorks Company has revolutionized our urban management capabilities. Their innovative approach and technical excellence exceeded our expectations."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">MP</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">Mayor Patricia Johnson</h5>
+                                <p class="text-muted mb-0">Metropolitan Government</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+                        <p class="card-text">"Working with AllWorks on our healthcare data analytics platform has been a game-changer. The insights generated have improved patient outcomes and operational efficiency beyond our projections."</p>
+                        <div class="d-flex align-items-center mt-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <span class="h5 mb-0">DR</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-0">Dr. Rebecca Chen</h5>
+                                <p class="text-muted mb-0">Director, Regional Hospital Network</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Process -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Our Project Approach</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="h5">Discovery</h3>
+                    <p>We begin with a thorough understanding of your needs, challenges, and objectives through in-depth consultations.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-pencil-ruler"></i>
+                    </div>
+                    <h3 class="h5">Planning</h3>
+                    <p>Our experts create a detailed project plan with clear timelines, deliverables, and resource allocations.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="h5">Execution</h3>
+                    <p>We implement the solution with rigorous quality control and regular progress updates throughout.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="h5">Optimization</h3>
+                    <p>Post-implementation, we ensure optimal performance and provide ongoing support for continuous improvement.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-primary py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mb-4">Ready to Start Your Project?</h2>
+                <p class="text-white mb-4">Let's discuss how we can help you achieve your business objectives through our expert project management and implementation services.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-secondary btn-lg">Contact Our Team</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Additional page-specific JavaScript if needed
+</script>
+{% endblock %}
