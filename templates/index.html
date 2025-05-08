@@ -6,13 +6,60 @@
 <!-- Hero Section -->
 <section class="hero">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-7 hero-content">
                 <h1>{{ company_info.name }}</h1>
                 <p>{{ company_info.slogan }}</p>
                 <div class="hero-buttons">
-                    <a href="#about" class="btn btn-secondary me-3 mb-2 mb-md-0">Learn More</a>
-                    <a href="{{ url_for('contact') }}" class="btn btn-outline-light">Contact Us</a>
+                    <a href="#about" class="btn btn-secondary me-3 mb-2 mb-md-0">
+                        <i class="fas fa-lightbulb me-2"></i>Learn More
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-light">
+                        <i class="fas fa-envelope me-2"></i>Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <!-- Abstract tech pattern/illustration -->
+                <div class="hero-graphic">
+                    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.8">
+                        <defs>
+                            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fff" stop-opacity="0.1"/>
+                                <stop offset="100%" stop-color="#fff" stop-opacity="0.4"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Abstract tech pattern - circles and lines -->
+                        <circle cx="250" cy="250" r="100" fill="none" stroke="url(#gradient1)" stroke-width="2" opacity="0.6"/>
+                        <circle cx="250" cy="250" r="150" fill="none" stroke="url(#gradient1)" stroke-width="1.5" opacity="0.4"/>
+                        <circle cx="250" cy="250" r="200" fill="none" stroke="url(#gradient1)" stroke-width="1" opacity="0.2"/>
+                        
+                        <!-- Connection lines -->
+                        <line x1="250" y1="150" x2="350" y2="80" stroke="url(#gradient1)" stroke-width="1.5"/>
+                        <circle cx="350" cy="80" r="8" fill="url(#gradient1)"/>
+                        
+                        <line x1="250" y1="150" x2="150" y2="100" stroke="url(#gradient1)" stroke-width="1.5"/>
+                        <circle cx="150" cy="100" r="8" fill="url(#gradient1)"/>
+                        
+                        <line x1="250" y1="350" x2="180" y2="420" stroke="url(#gradient1)" stroke-width="1.5"/>
+                        <circle cx="180" cy="420" r="8" fill="url(#gradient1)"/>
+                        
+                        <line x1="250" y1="350" x2="350" y2="400" stroke="url(#gradient1)" stroke-width="1.5"/>
+                        <circle cx="350" cy="400" r="8" fill="url(#gradient1)"/>
+                        
+                        <line x1="100" y1="250" x2="50" y2="180" stroke="url(#gradient1)" stroke-width="1.5"/>
+                        <circle cx="50" cy="180" r="8" fill="url(#gradient1)"/>
+                        
+                        <line x1="400" y1="250" x2="450" y2="200" stroke="url(#gradient1)" stroke-width="1.5"/>
+                        <circle cx="450" cy="200" r="8" fill="url(#gradient1)"/>
+                        
+                        <!-- Small decorative elements -->
+                        <circle cx="250" cy="250" r="15" fill="url(#gradient1)"/>
+                        <circle cx="150" cy="250" r="5" fill="url(#gradient1)"/>
+                        <circle cx="350" cy="250" r="5" fill="url(#gradient1)"/>
+                        <circle cx="250" cy="150" r="5" fill="url(#gradient1)"/>
+                        <circle cx="250" cy="350" r="5" fill="url(#gradient1)"/>
+                    </svg>
                 </div>
             </div>
         </div>
