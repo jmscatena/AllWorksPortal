@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Submissions{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Contact Form Submissions</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    {% if submissions %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Inquiry Type</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for submission in submissions %}
+                        <tr>
+                            <td>{{ submission.id }}</td>
+                            <td>{{ submission.name }}</td>
+                            <td>{{ submission.email }}</td>
+                            <td>{{ submission.subject }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if submission.inquiry_type == 'general' %}bg-secondary
+                                    {% elif submission.inquiry_type == 'project' %}bg-primary
+                                    {% elif submission.inquiry_type == 'course' %}bg-success
+                                    {% elif submission.inquiry_type == 'training' %}bg-info
+                                    {% elif submission.inquiry_type == 'publication' %}bg-warning
+                                    {% elif submission.inquiry_type == 'partnership' %}bg-danger
+                                    {% else %}bg-dark{% endif %}">
+                                    {{ submission.inquiry_type|title }}
+                                </span>
+                            </td>
+                            <td>{{ submission.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal{{ submission.id }}">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        
+                        <!-- View Modal -->
+                        <div class="modal fade" id="viewModal{{ submission.id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ submission.id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-primary text-white">
+                                        <h5 class="modal-title" id="viewModalLabel{{ submission.id }}">{{ submission.subject }}</h5>
+                                        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <p><strong>Name:</strong> {{ submission.name }}</p>
+                                                <p><strong>Email:</strong> {{ submission.email }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><strong>Inquiry Type:</strong> {{ submission.inquiry_type|title }}</p>
+                                                <p><strong>Date:</strong> {{ submission.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="message-content p-3 bg-light rounded">
+                                            <p><strong>Message:</strong></p>
+                                            <p>{{ submission.message|nl2br }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No contact form submissions available yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
