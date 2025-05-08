@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="100" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main logo container -->
+  <g id="awc-logo">
+    <!-- Modern abstract tech element background -->
+    <g id="tech-bg" opacity="0.15">
+      <circle cx="50" cy="50" r="45" fill="#1565c0" />
+      <path d="M5,50 L95,50" stroke="#00bfa5" stroke-width="1.5" />
+      <path d="M50,5 L50,95" stroke="#00bfa5" stroke-width="1.5" />
+      <circle cx="50" cy="50" r="30" fill="none" stroke="#00bfa5" stroke-width="1" />
+      <circle cx="50" cy="50" r="20" fill="none" stroke="#00bfa5" stroke-width="1" />
+    </g>
+    
+    <!-- Hexagon container for AWC -->
+    <path id="hexagon" d="M50,5 L87,25 L87,75 L50,95 L13,75 L13,25 Z" fill="#0a2e55" stroke="#00bfa5" stroke-width="2" />
+    
+    <!-- AWC letters -->
+    <g id="awc-text" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold">
+      <text x="50" y="62" font-size="32" text-anchor="middle">AWC</text>
+    </g>
+    
+    <!-- Company name -->
+    <g id="company-name" fill="#051c35" font-family="Arial, sans-serif" font-weight="bold">
+      <text x="150" y="45" font-size="30" letter-spacing="1.5">ALLWORKS</text>
+      <text x="150" y="75" font-size="30" letter-spacing="1.5">COMPANY</text>
+    </g>
+    
+    <!-- Modern line element -->
+    <line x1="110" y1="30" x2="110" y2="70" stroke="#00bfa5" stroke-width="3" />
+    
+    <!-- Abstract tech circuit lines -->
+    <g id="circuit-lines" stroke="#00bfa5" stroke-width="1" opacity="0.7">
+      <path d="M320,20 L350,20 L360,30 L390,30" />
+      <path d="M330,40 L360,40 L370,50 L390,50" />
+      <path d="M340,60 L370,60 L380,70 L390,70" />
+      <path d="M350,80 L380,80 L390,90" />
+      
+      <!-- Connection dots -->
+      <circle cx="350" cy="20" r="2" fill="#00bfa5" />
+      <circle cx="390" cy="30" r="2" fill="#00bfa5" />
+      <circle cx="360" cy="40" r="2" fill="#00bfa5" />
+      <circle cx="390" cy="50" r="2" fill="#00bfa5" />
+      <circle cx="370" cy="60" r="2" fill="#00bfa5" />
+      <circle cx="390" cy="70" r="2" fill="#00bfa5" />
+      <circle cx="380" cy="80" r="2" fill="#00bfa5" />
+      <circle cx="390" cy="90" r="2" fill="#00bfa5" />
+    </g>
+  </g>
+</svg>

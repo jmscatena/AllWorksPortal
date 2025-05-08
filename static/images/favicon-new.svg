@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagon container for AWC -->
+  <path id="hexagon" d="M50,5 L87,25 L87,75 L50,95 L13,75 L13,25 Z" fill="#0a2e55" stroke="#00bfa5" stroke-width="2" />
+  
+  <!-- Tech background elements -->
+  <g id="tech-bg" opacity="0.2">
+    <circle cx="50" cy="50" r="30" fill="none" stroke="#00bfa5" stroke-width="1" />
+    <circle cx="50" cy="50" r="20" fill="none" stroke="#00bfa5" stroke-width="1" />
+    <path d="M25,50 L75,50" stroke="#00bfa5" stroke-width="1" />
+    <path d="M50,25 L50,75" stroke="#00bfa5" stroke-width="1" />
+  </g>
+  
+  <!-- AWC letters -->
+  <g id="awc-text" fill="#ffffff" font-family="Arial, sans-serif" font-weight="bold">
+    <text x="50" y="62" font-size="32" text-anchor="middle">AWC</text>
+  </g>
+</svg>
