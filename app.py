@@ -46,9 +46,5 @@ from routes import *  # noqa: E402, F403
 import models  # noqa: F401
 
 # Create database tables if they don't exist
-def create_tables():
-    with app.app_context():
-        db.create_all()
-
-# Call the function to create tables
-create_tables()
+with app.app_context():
+    db.create_all()
