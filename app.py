@@ -31,6 +31,14 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 csrf = CSRFProtect(app)
 
+# Add custom Jinja filters
+@app.template_filter('nl2br')
+def nl2br_filter(text):
+    """Convert newlines to HTML line breaks"""
+    if not text:
+        return ''
+    return text.replace('\n', '<br>')
+
 # Import routes after the app is created to avoid circular imports
 from routes import *  # noqa: E402, F403
 
