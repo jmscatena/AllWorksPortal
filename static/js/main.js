@@ -24,24 +24,24 @@ function initNavbarScroll() {
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             navbar.classList.add('navbar-scrolled');
-            navbar.classList.add('bg-white');
         } else {
             navbar.classList.remove('navbar-scrolled');
-            // Only remove bg-white if not mobile menu expanded
-            if (!document.querySelector('.navbar-collapse').classList.contains('show')) {
-                navbar.classList.remove('bg-white');
-            }
         }
     });
     
-    // Ensure navbar has correct class on mobile toggle
+    // Ensure navbar handling for mobile toggle
     const navbarToggler = document.querySelector('.navbar-toggler');
-    if (navbarToggler) {
-        navbarToggler.addEventListener('click', function() {
-            if (document.querySelector('.navbar-collapse').classList.contains('show')) {
-                navbar.classList.remove('bg-white');
-            } else {
-                navbar.classList.add('bg-white');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+    if (navbarToggler && navbarCollapse) {
+        // When navbar is collapsed or expanded
+        navbarCollapse.addEventListener('shown.bs.collapse', function() {
+            navbar.classList.add('navbar-scrolled');
+        });
+        
+        navbarCollapse.addEventListener('hidden.bs.collapse', function() {
+            if (window.scrollY <= 50) {
+                navbar.classList.remove('navbar-scrolled');
             }
         });
     }
