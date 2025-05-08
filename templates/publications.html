@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+{% block title %}Publications - AllWorks Company{% endblock %}
+
+{% block content %}
+<!-- Publications Hero -->
+<section class="bg-primary py-5 text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-4">Our Publications</h1>
+                <p class="lead">Access our collection of industry-leading research, white papers, guides, and reports that provide valuable insights and practical knowledge for professionals and organizations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Publications Overview -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="section-title text-start">Knowledge Sharing & Thought Leadership</h2>
+                <p class="lead mb-4">AllWorks Company is committed to advancing knowledge and best practices across industries through our comprehensive publications. Our team of experts regularly develops high-quality content that addresses current challenges and future trends.</p>
+                <p>Our publications are based on extensive research, real-world experience, and collaboration with industry leaders. They provide actionable insights, frameworks, and methodologies that you can apply in your professional context.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="px-4">
+                    <img src="https://pixabay.com/get/g2813771833417bbab9e0ee759ee133738f5ca853b18f3541ba521007e7582791c3a4a09119ab3f2b4b436652a3ef2e3c86406f135542ca44db03dbec9348b4cb_1280.jpg" alt="Publications Overview" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Publications Categories -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">Publication Categories</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="h5">White Papers</h3>
+                    <p>In-depth analyses of industry trends, challenges, and opportunities with evidence-based insights and recommendations.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="h5">Research Reports</h3>
+                    <p>Comprehensive studies with data-driven findings on key topics relevant to business and organizational performance.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="h5">Guides & Playbooks</h3>
+                    <p>Practical, step-by-step resources designed to help professionals implement best practices effectively.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="h5">Technical Reports</h3>
+                    <p>Specialized documents that provide technical analysis and solutions for specific industry challenges.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Publications Listing -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Available Publications</h2>
+        
+        <div class="row">
+            {% for publication in publications %}
+                <div class="col-lg-6 mb-4 fade-in">
+                    <div class="card publication-card h-100">
+                        <div class="card-body">
+                            <span class="publication-type">{{ publication.type }}</span>
+                            <h3 class="card-title h5">{{ publication.title }}</h3>
+                            <p class="publication-date"><i class="far fa-calendar-alt me-1"></i> {{ publication.publication_date }} | {{ publication.pages }} pages</p>
+                            <p class="card-text">{{ publication.description }}</p>
+                            
+                            <h4 class="h6 mt-4 mb-2">Key Topics:</h4>
+                            <ul class="publication-topics">
+                                {% for topic in publication.topics %}
+                                    <li>{{ topic }}</li>
+                                {% endfor %}
+                            </ul>
+                            
+                            <p><strong>Author:</strong> {{ publication.author }}</p>
+                        </div>
+                        <div class="card-footer card-footer-download">
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicationModal{{ publication.id }}">
+                                <i class="fas fa-info-circle me-1"></i> Details
+                            </a>
+                            <a href="#" class="btn btn-outline-primary ms-2">
+                                <i class="fas fa-download me-1"></i> Download
+                            </a>
+                            <span class="download-format ms-2"><i class="far fa-file-pdf me-1"></i> {{ publication.download_format }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Publication Modal -->
+                <div class="modal fade" id="publicationModal{{ publication.id }}" tabindex="-1" aria-labelledby="publicationModalLabel{{ publication.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="publicationModalLabel{{ publication.id }}">{{ publication.title }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="d-flex flex-wrap mb-3">
+                                    <span class="badge bg-primary me-2 mb-2">{{ publication.type }}</span>
+                                    <span class="badge bg-secondary me-2 mb-2">{{ publication.publication_date }}</span>
+                                    <span class="badge bg-info text-dark me-2 mb-2">{{ publication.pages }} pages</span>
+                                    <span class="badge bg-success me-2 mb-2">{{ publication.download_format }}</span>
+                                </div>
+                                
+                                <h5 class="mb-2">Description</h5>
+                                <p>{{ publication.description }}</p>
+                                
+                                <h5 class="mb-2 mt-4">Author</h5>
+                                <p>{{ publication.author }}</p>
+                                
+                                <h5 class="mb-2 mt-4">Key Topics</h5>
+                                <div class="row">
+                                    {% for topic in publication.topics %}
+                                        <div class="col-md-6">
+                                            <div class="d-flex align-items-start mb-2">
+                                                <div class="me-2">
+                                                    <i class="fas fa-check-circle text-success"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="mb-0">{{ topic }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <h5 class="mt-4 mb-2">Inside This Publication</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-chart-line text-primary me-2"></i>Data-driven insights</li>
+                                            <li><i class="fas fa-lightbulb text-primary me-2"></i>Innovative approaches</li>
+                                            <li><i class="fas fa-puzzle-piece text-primary me-2"></i>Practical frameworks</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-square text-primary me-2"></i>Implementation checklists</li>
+                                            <li><i class="fas fa-user-check text-primary me-2"></i>Expert recommendations</li>
+                                            <li><i class="fas fa-briefcase text-primary me-2"></i>Case studies</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mt-4 mb-2">Who Should Read This</h5>
+                                <p>This publication is valuable for:</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-user-tie text-primary me-2"></i>Executives and senior leaders</li>
+                                    <li><i class="fas fa-users-cog text-primary me-2"></i>Department and team managers</li>
+                                    <li><i class="fas fa-user-cog text-primary me-2"></i>Professionals in relevant fields</li>
+                                    <li><i class="fas fa-user-graduate text-primary me-2"></i>Researchers and academics</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="{{ url_for('contact') }}" class="btn btn-primary">Request Custom Copy</a>
+                                <a href="#" class="btn btn-success">
+                                    <i class="fas fa-download me-1"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Subscription Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="section-title">Stay Updated with Our Latest Publications</h2>
+                <p class="mb-4">Subscribe to our newsletter to receive notifications about new publications, research findings, and industry insights.</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <form class="d-flex">
+                            <input type="email" class="form-control me-2" placeholder="Your email address">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Research Insights -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">From Our Research</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <span class="publication-type">Research Insight</span>
+                        <h3 class="h5 mt-2">Digital Transformation Success Factors</h3>
+                        <p>Our research across 200+ organizations identified that companies with executive-level digital champions were 2.3x more likely to report successful digital transformation outcomes.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <span class="publication-type">Research Insight</span>
+                        <h3 class="h5 mt-2">Sustainable Business Models</h3>
+                        <p>Organizations that integrated ESG metrics into executive performance evaluation saw a 27% higher likelihood of achieving their sustainability targets and 18% better financial performance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <span class="publication-type">Research Insight</span>
+                        <h3 class="h5 mt-2">Remote Work Productivity</h3>
+                        <p>Companies that implemented structured communication protocols and outcome-based performance metrics reported a 23% increase in productivity among remote teams versus those using traditional management approaches.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-primary py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mb-4">Need Custom Research or Publications?</h2>
+                <p class="text-white mb-4">Our team can develop custom research reports, white papers, or industry analyses tailored to your specific needs and challenges.</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-secondary btn-lg">Contact Our Research Team</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,297 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - AllWorks Company{% endblock %}
+
+{% block content %}
+<!-- Contact Hero -->
+<section class="bg-primary py-5 text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="mb-4">Contact Us</h1>
+                <p class="lead">Get in touch with our team to discuss your project, training needs, or any questions about our services and offerings.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form and Info -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <div class="contact-form">
+                    <h2 class="section-title text-start">Send Us a Message</h2>
+                    <form id="contactForm" method="POST" action="{{ url_for('contact') }}" novalidate>
+                        {{ form.csrf_token }}
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-4">
+                                <label for="{{ form.name.id }}">{{ form.name.label }}</label>
+                                {{ form.name(class="form-control", placeholder="Your full name") }}
+                                {% if form.name.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.name.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 form-group mb-4">
+                                <label for="{{ form.email.id }}">{{ form.email.label }}</label>
+                                {{ form.email(class="form-control", placeholder="Your email address") }}
+                                {% if form.email.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.email.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-4">
+                                <label for="{{ form.subject.id }}">{{ form.subject.label }}</label>
+                                {{ form.subject(class="form-control", placeholder="Message subject") }}
+                                {% if form.subject.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.subject.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-md-6 form-group mb-4">
+                                <label for="{{ form.inquiry_type.id }}">{{ form.inquiry_type.label }}</label>
+                                {{ form.inquiry_type(class="form-control") }}
+                                {% if form.inquiry_type.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.inquiry_type.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <label for="{{ form.message.id }}">{{ form.message.label }}</label>
+                            {{ form.message(class="form-control", rows=6, placeholder="Your message") }}
+                            {% if form.message.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.message.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="h6 mb-1">Headquarters</h4>
+                            <p class="mb-0">123 Business Avenue, Suite 500<br>New York, NY 10001<br>United States</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="h6 mb-1">Phone</h4>
+                            <p class="mb-0">+1 (212) 555-7890</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="h6 mb-1">Email</h4>
+                            <p class="mb-0">info@allworkscompany.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4 class="h6 mb-1">Business Hours</h4>
+                            <p class="mb-0">Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 2:00 PM<br>Sunday: Closed</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h4 class="h6 mb-3">Connect With Us</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Global Presence -->
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="section-title">Our Global Presence</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="h5">North America</h3>
+                    <p>New York (HQ)<br>San Francisco<br>Toronto</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="h5">Europe</h3>
+                    <p>London<br>Berlin<br>Amsterdam</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="h5">Asia Pacific</h3>
+                    <p>Singapore<br>Sydney<br>Tokyo</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="feature-box text-center h-100">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="h5">Middle East</h3>
+                    <p>Dubai<br>Abu Dhabi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                How can we start working with AllWorks Company?
+                            </button>
+                        </h3>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>The process begins with an initial consultation to understand your specific needs and objectives. You can reach out through our contact form, email, or phone. One of our representatives will schedule a discovery call to discuss your requirements in detail, after which we'll provide a customized proposal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Do you offer customized training programs for specific industries?
+                            </button>
+                        </h3>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Yes, we specialize in customizing our training programs to address industry-specific challenges and requirements. Our team conducts a thorough needs analysis to develop training content, methodologies, and case studies relevant to your particular industry context, ensuring maximum relevance and practical application.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                What is your approach to project management?
+                            </button>
+                        </h3>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Our project management approach is adaptive and tailored to each client's specific needs. We employ both traditional and agile methodologies as appropriate, with a strong focus on clear communication, stakeholder engagement, risk management, and quality assurance. Each project is assigned a dedicated project manager who serves as your primary point of contact throughout the engagement.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Can we access your publications for free?
+                            </button>
+                        </h3>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>We offer a mix of free and premium publications. Our blog posts, selected white papers, and research briefs are available for free download, while our comprehensive research reports, in-depth guides, and specialized technical papers typically require purchase. We also offer subscription options for organizations wanting regular access to our full library of publications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Enhanced form validation with custom messages
+        const contactForm = document.getElementById('contactForm');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                if (!contactForm.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    // Add custom validation highlighting
+                    const formInputs = contactForm.querySelectorAll('input, textarea, select');
+                    formInputs.forEach(input => {
+                        if (!input.checkValidity()) {
+                            input.classList.add('is-invalid');
+                            input.addEventListener('input', function() {
+                                if (this.checkValidity()) {
+                                    this.classList.remove('is-invalid');
+                                    this.classList.add('is-valid');
+                                }
+                            });
+                        }
+                    });
+                }
+                
+                contactForm.classList.add('was-validated');
+            });
+        }
+    });
+</script>
+{% endblock %}
