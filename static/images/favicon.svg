@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded square background -->
+  <rect x="0" y="0" width="120" height="120" rx="24" ry="24" fill="#0a2e55" stroke="#00bfa5" stroke-width="3" />
+  
+  <!-- AWC text -->
+  <text x="60" y="75" font-family="Arial, sans-serif" font-size="60" font-weight="bold" text-anchor="middle" fill="#ffffff">AWC</text>
+</svg>
