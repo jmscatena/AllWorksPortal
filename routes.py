@@ -89,12 +89,78 @@ def contact():
         
     return render_template('contact.html', form=form)
 
+@app.route('/subscribe-newsletter', methods=['POST'])
+def subscribe_newsletter():
+    """Handle newsletter subscription form"""
+    email = request.form.get('email')
+    
+    if not email:
+        flash('Email is required for subscription', 'danger')
+        return redirect(request.referrer or url_for('index'))
+    
+    # Check if the email is already subscribed
+    existing_subscription = NewsletterSubscription.query.filter_by(email=email).first()
+    
+    if existing_subscription:
+        if existing_subscription.is_active:
+            flash('You are already subscribed to our newsletter!', 'info')
+        else:
+            # Reactivate the subscription
+            existing_subscription.is_active = True
+            db.session.commit()
+            flash('Your subscription has been reactivated!', 'success')
+    else:
+        # Create new subscription
+        subscription = NewsletterSubscription(
+            email=email,
+            first_name=request.form.get('first_name', '')
+        )
+        
+        try:
+            db.session.add(subscription)
+            db.session.commit()
+            flash('Thank you for subscribing to our newsletter!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            app.logger.error(f"Database error: {str(e)}")
+            flash('An error occurred while processing your subscription.', 'danger')
+    
+    return redirect(request.referrer or url_for('index'))
+
 @app.route('/admin/submissions')
 def admin_submissions():
     """View all contact form submissions"""
     # Get all submissions from the database, ordered by creation date (newest first)
     submissions = ContactSubmission.query.order_by(ContactSubmission.created_at.desc()).all()
     return render_template('admin/submissions.html', submissions=submissions)
+
+@app.route('/admin/subscriptions')
+def admin_subscriptions():
+    """View all newsletter subscriptions"""
+    # Get all subscriptions from the database, ordered by subscription date (newest first)
+    subscriptions = NewsletterSubscription.query.order_by(NewsletterSubscription.subscribed_at.desc()).all()
+    return render_template('admin/subscriptions.html', subscriptions=subscriptions)
+
+@app.route('/admin/subscriptions/<int:subscription_id>/toggle', methods=['POST'])
+def toggle_subscription(subscription_id):
+    """Toggle active status of a newsletter subscription"""
+    subscription = NewsletterSubscription.query.get_or_404(subscription_id)
+    
+    # Toggle the is_active status
+    subscription.is_active = not subscription.is_active
+    
+    try:
+        db.session.commit()
+        if subscription.is_active:
+            flash(f"Subscription for {subscription.email} has been activated.", "success")
+        else:
+            flash(f"Subscription for {subscription.email} has been deactivated.", "success")
+    except Exception as e:
+        db.session.rollback()
+        app.logger.error(f"Database error: {str(e)}")
+        flash("An error occurred while updating the subscription status.", "danger")
+    
+    return redirect(url_for('admin_subscriptions'))
 
 @app.errorhandler(404)
 def page_not_found(e):

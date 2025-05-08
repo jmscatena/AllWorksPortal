@@ -27,6 +27,11 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == url_for('contact') %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == url_for('admin_submissions') %}active{% endif %}" href="{{ url_for('admin_submissions') }}">
+                            <i class="fas fa-database"></i> Admin
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
